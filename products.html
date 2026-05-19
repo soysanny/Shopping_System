@@ -1,66 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-</head>
-<style>
+    <title>Modern Product Cards</title>
 
-    body {
-        display: flex;
-        justify-content: space-evenly;
-        padding-top: 50px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: white;
-        font-size: 20px;
-        background-color: whitesmoke;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .card-1 {
-        width: 400px;
-        height: 200px;
-        background-color: black;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        border-radius: 10px;
-        padding: 20px;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.8)),
+                url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            line-height: 1.7;
+            color: #d0d0d0;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            background: white;
+            color: black;
+            transition: 0.3s;
+        }
+
+        .hero button:hover {
+            transform: scale(1.05);
+        }
+
+        .products {
+            min-height: 100vh;
+            padding: 100px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 70px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 360px;
+            height: 450px;
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+
+            opacity: 0;
+            transform: translateY(120px) scale(0.9);
+            transition:
+                transform 0.8s ease,
+                opacity 0.8s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.15);
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(to top,
+                    rgba(0, 0, 0, 0.9),
+                    rgba(0, 0, 0, 0.2));
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .overlay h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .overlay p {
+            line-height: 1.7;
+            color: #d8d8d8;
+            margin-bottom: 25px;
+        }
+
+        .overlay a {
+            width: fit-content;
+            text-decoration: none;
+            color: white;
+            border: 1px solid white;
+            padding: 12px 22px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .overlay a:hover {
+            background: white;
+            color: black;
+        }
+
+        .card-1 {
+            background-image: url("https://www.mamp.one/wp-content/uploads/2024/09/image-resources2.jpg");
+        }
+
         .card-2 {
-        width: 400px;
-        height: 200px;
-        background-color: blue;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        border-radius: 10px;
-        padding: 20px;
-    }
-        .card-3 {
-        width: 400px;
-        height: 200px;
-        background-color: green;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        border-radius: 10px;
-        padding: 20px;
-    }
+            background-image: url("https://gratisography.com/wp-content/uploads/2025/01/gratisography-dog-vacation-800x525.jpg");
+        }
 
-</style>
+        .card-3 {
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png");
+        }
+
+        .extra-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .extra-section h2 {
+            font-size: 60px;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        @media(max-width: 768px) {
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .section-title {
+                font-size: 38px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .extra-section h2 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
 <body>
-    <div class="card-1">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptatum eveniet dolore, 
-        porro rem itaque quae ratione iure dolor assumenda qui nobis molestias labore eum pariatur, totam dicta possimus dolorem.</p>
-    </div>
-    <div class="card-2">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptatum eveniet dolore, 
-        porro rem itaque quae ratione iure dolor assumenda qui nobis molestias labore eum pariatur, totam dicta possimus dolorem.</p>
-    </div>
-    <div class="card-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptatum eveniet dolore, 
-        porro rem itaque quae ratione iure dolor assumenda qui nobis molestias labore eum pariatur, totam dicta possimus dolorem.</p>
-    </div>
+
+    <section class="hero">
+        <h1>Future Collection</h1>
+
+        <p>
+            Discover premium modern cards with smooth animations,
+            glassmorphism effects, cinematic backgrounds,
+            and scroll reveal transitions.
+        </p>
+
+        <button>Explore Now</button>
+    </section>
+
+    <section class="products">
+
+        <h1 class="section-title">Featured Products</h1>
+
+        <div class="card-container">
+
+            <div class="card card-1">
+                <div class="overlay">
+                    <h2>Technology</h2>
+
+                    <p>
+                        Explore futuristic designs with smooth modern interfaces
+                        and premium visuals for your next project.
+                    </p>
+
+                    <a href="#">Learn More</a>
+                </div>
+            </div>
+
+            <div class="card card-2">
+                <div class="overlay">
+                    <h2>Adventure</h2>
+
+                    <p>
+                        Creative experiences inspired by travel,
+                        imagination, and dynamic storytelling visuals.
+                    </p>
+
+                    <a href="#">Discover</a>
+                </div>
+            </div>
+
+            <div class="card card-3">
+                <div class="overlay">
+                    <h2>Photography</h2>
+
+                    <p>
+                        Elegant photography layouts with immersive overlays,
+                        motion effects, and responsive interactions.
+                    </p>
+
+                    <a href="#">View More</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="extra-section">
+        <h2>
+            Scroll Down & Up To See The Cards Smoothly Slide Into View
+        </h2>
+    </section>
+
+    <script>
+        const cards = document.querySelectorAll(".card");
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach((entry) => {
+
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                } else {
+                    entry.target.classList.remove("show");
+                }
+
+            });
+
+        }, {
+            threshold: 0.2
+        });
+
+        cards.forEach((card) => {
+            observer.observe(card);
+        });
+    </script>
+
 </body>
+
 </html>
